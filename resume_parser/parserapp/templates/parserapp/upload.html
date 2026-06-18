@@ -1,0 +1,18 @@
+{% extends "parserapp/base.html" %}
+{% block content %}
+<div class="card p-4 mx-auto" style="max-width: 600px;">
+    <h3 class="mb-3 text-center text-success">Upload Resume</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_file" class="form-label">Select Resume File</label>
+            {{ form.file }}
+        </div>
+        <div class="mb-3">
+            <label for="id_job" class="form-label">Select Job (optional)</label>
+            {{ form.job }}
+        </div>
+        <button type="submit" class="btn btn-success w-100">Upload & Parse</button>
+    </form>
+</div>
+{% endblock %}

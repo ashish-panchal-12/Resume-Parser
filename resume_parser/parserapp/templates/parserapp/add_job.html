@@ -1,0 +1,11 @@
+{% extends "parserapp/base.html" %}
+{% block content %}
+<div class="card p-4 mx-auto" style="max-width: 600px;">
+    <h3 class="mb-3 text-center text-primary">Add New Job</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary w-100 mt-3">Save Job</button>
+    </form>
+</div>
+{% endblock %}

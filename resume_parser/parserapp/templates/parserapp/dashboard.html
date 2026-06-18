@@ -1,0 +1,63 @@
+{% extends "parserapp/base.html" %}
+{% block content %}
+<h2 class="fw-semibold mb-4">ATS Dashboard Overview</h2>
+
+
+
+<h4 class="mt-4 mb-3 text-primary">Top 5 Candidates by ATS Score</h4>
+{% if top_resumes %}
+<div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+        <thead class="table-primary">
+            <tr>
+                <th>Resume ID</th>
+                <th>Job</th>
+                <th>ATS Score</th>
+                <th>Uploaded</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in top_resumes %}
+            <tr>
+                <td>Resume {{ r.pk }}</td>
+                <td>{% if r.job %}{{ r.job.title }}{% else %}—{% endif %}</td>
+                <td><span class="badge bg-success">{{ r.score }}%</span></td>
+                <td>{{ r.uploaded_at|date:"M d, Y H:i" }}</td>
+                <td><a href="{% url 'resume_detail' r.pk %}" class="btn btn-sm btn-outline-primary">View</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card text-center p-3 bg-primary text-white">
+            <h5>Total Jobs</h5>
+            <h2>{{ total_jobs }}</h2>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center p-3 bg-success text-white">
+            <h5>Total Resumes</h5>
+            <h2>{{ total_resumes }}</h2>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center p-3 bg-warning text-dark">
+            <h5>Average ATS Score</h5>
+            <h2>{{ avg_score }}%</h2>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center p-3 bg-info text-dark">
+            <h5>Top Candidates</h5>
+            <h2>{{ top_resumes|length }}</h2>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info">No resumes uploaded yet.</div>
+{% endif %}
+{% endblock %}

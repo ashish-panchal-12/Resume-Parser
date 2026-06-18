@@ -1,0 +1,43 @@
+{% extends "parserapp/base.html" %}
+{% block content %}
+<div class="container">
+    <h2 class="fw-semibold mb-3">Resume Details</h2>
+
+    <div class="card p-4 shadow-sm mb-4">
+        <h4 class="text-primary">{{ resume.parsed_data.name }}</h4>
+        <p><strong>Email:</strong> {{ resume.parsed_data.email }}</p>
+        <p><strong>Phone:</strong> {{ resume.parsed_data.phone }}</p>
+
+        <p><strong>Associated Job:</strong>
+            {% if resume.job %}{{ resume.job.title }}{% else %}—{% endif %}
+        </p>
+
+        <p><strong>ATS Score:</strong>
+            <span class="badge bg-success">{{ resume.score }}%</span>
+        </p>
+
+        <p><strong>Skills:</strong>
+            {% if resume.parsed_data.skills %}
+            {% for s in resume.parsed_data.skills %}
+            <span class="badge bg-info text-dark">{{ s }}</span>
+            {% endfor %}
+            {% else %}
+            —
+            {% endif %}
+        </p>
+    </div>
+
+    <h5 class="mt-4 mb-2 text-secondary">Resume Text Preview</h5>
+    <div class="card p-3 bg-light border rounded" style="white-space: pre-wrap; max-height: 400px; overflow-y: auto;">
+        {% if resume.parsed_data.text_preview %}
+        {{ resume.parsed_data.text_preview }}
+        {% else %}
+        <em>No text extracted from this resume.</em>
+        {% endif %}
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'dashboard' %}" class="btn btn-outline-primary">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

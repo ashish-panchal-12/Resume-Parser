@@ -1,0 +1,24 @@
+{% extends "parserapp/base.html" %}
+{% block content %}
+<div class="card p-4">
+    <h3 class="text-primary">{{ job.title }}</h3>
+    <p><strong>Required Skills:</strong> {{ job.required_skills }}</p>
+    <p><strong>Minimum Experience:</strong> {{ job.min_experience }}+ years</p>
+
+    <h4 class="mt-4">Uploaded Resumes</h4>
+    {% if resumes %}
+    <ul class="list-group mt-3">
+        {% for r in resumes %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="{% url 'resume_detail' r.pk %}" class="text-decoration-none text-dark">
+                Resume {{ r.pk }}
+            </a>
+            <span class="badge bg-success">{{ r.score }}%</span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-muted mt-3">No resumes uploaded for this job yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "parserapp/base.html" %}
+{% block content %}
+<h2 class="mb-4 fw-semibold">Available Job Listings</h2>
+
+{% if jobs %}
+<div class="row g-3">
+    {% for job in jobs %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card p-3 h-100">
+            <div class="card-body">
+                <h5 class="card-title text-primary">{{ job.title }}</h5>
+                <p class="card-text small text-muted">
+                    <strong>Required Skills:</strong> {{ job.required_skills }}
+                </p>
+                <p class="text-secondary small mb-3">
+                    <strong>Experience:</strong> {{ job.min_experience }}+ years
+                </p>
+                <a href="{% url 'job_detail' job.pk %}" class="btn btn-primary w-100">View Applicants</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info">No jobs yet. <a href="/job/add/">Add one</a></div>
+{% endif %}
+{% endblock %}
