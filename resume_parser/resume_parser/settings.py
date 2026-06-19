@@ -3,8 +3,15 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure-yourkey"
-DEBUG = False
+import os
+
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    "local-development-key-not-for-production"
+)
+
+DEBUG = os.environ.get("DEBUG", "False") == "True"
+
 ALLOWED_HOSTS = ['.onrender.com']
 
 INSTALLED_APPS = [
@@ -56,6 +63,9 @@ DATABASES = {
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
