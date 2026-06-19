@@ -1,5 +1,7 @@
 # Resume Parser & ATS Scoring System
 
+For Live Demo : https://resume-parser-cgco.onrender.com/ (It takes few seconds to load, pls wait).
+
 A Django-based web application that parses resumes, extracts candidate information, and calculates ATS (Applicant Tracking System) scores by matching candidate skills with job requirements.
 
 ## 🚀 Features
